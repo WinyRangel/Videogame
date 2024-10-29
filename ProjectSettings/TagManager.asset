@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Sushi
+  - Espinas
   layers:
   - Default
   - TransparentFX
@@ -13,8 +15,8 @@ TagManager:
   - UI
   - Piso
   - Sushi
-  - 
-  - 
+  - NivelVida
+  - Cueva
   - 
   - 
   - 
@@ -55,4 +57,10 @@ TagManager:
     locked: 0
   - name: Sushi
     uniqueID: 3435044217
+    locked: 0
+  - name: BarraVida
+    uniqueID: 2573031895
+    locked: 0
+  - name: Cueva
+    uniqueID: 953445241
     locked: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerControllers : MonoBehaviour
 {
     // Start is called before the first frame update
-    private Rigidbody2D rbD2;
+    private Rigidbody2D rb2D;
 
     [Header("Movimiento")]
     private float movimientoHorizontal = 0f;
@@ -32,7 +32,7 @@ public class PlayerControllers : MonoBehaviour
 
     void Start()
     {
-        rbD2 = GetComponent<Rigidbody2D>();
+        rb2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
     }
@@ -42,7 +42,8 @@ public class PlayerControllers : MonoBehaviour
     {
         // Capturar movimiento horizontal
         movimientoHorizontal = Input.GetAxisRaw("Horizontal") * velocidadDeMovimiento;
-        animator.SetFloat("Horizontal", Mathf.Abs(movimientoHorizontal));
+        animator.SetFloat("Horizontal", Mathf.Abs(movimientoHorizontal)); //valor asoluto para que siempre arroje un numero positivo y tener mejor control de animación
+        animator.SetFloat("VelocidadY", rb2D.velocity.y);
         // Detectar salto
         if (Input.GetButtonDown("Jump") && enSuelo)
         {
@@ -54,6 +55,7 @@ public class PlayerControllers : MonoBehaviour
     {
         // Verificar si el personaje está en el suelo
         enSuelo = Physics2D.OverlapBox(controladorSuelo.position, dimensionesCaja, 0f, queEsSuelo);
+        animator.SetBool("enSuelo", enSuelo);
 
         // Mover personaje
         Mover(movimientoHorizontal * Time.fixedDeltaTime, salto);
@@ -64,8 +66,8 @@ public class PlayerControllers : MonoBehaviour
     private void Mover(float mover, bool saltar)
     {
         // Definir la velocidad objetivo
-        Vector3 velocidadObjetivo = new Vector2(mover, rbD2.velocity.y);
-        rbD2.velocity = Vector3.SmoothDamp(rbD2.velocity, velocidadObjetivo, ref velocidad, suavidadDeMovimiento);
+        Vector3 velocidadObjetivo = new Vector2(mover, rb2D.velocity.y);
+        rb2D.velocity = Vector3.SmoothDamp(rb2D.velocity, velocidadObjetivo, ref velocidad, suavidadDeMovimiento);
 
         // Girar el personaje si es necesario
         if (mover > 0 && !mirandoDerecha)
@@ -80,7 +82,7 @@ public class PlayerControllers : MonoBehaviour
         // Ejecutar salto si está en el suelo y se presionó el botón de salto
         if (enSuelo && saltar)
         {
-            rbD2.AddForce(new Vector2(0f, fuerzaSalto), ForceMode2D.Impulse); // Usar ForceMode2D.Impulse para un salto más inmediato
+            rb2D.AddForce(new Vector2(0f, fuerzaSalto), ForceMode2D.Impulse); // Usar ForceMode2D.Impulse para un salto más inmediato
         }
     }
 

@@ -5,37 +5,49 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     // Variables para controlar el movimiento del enemigo
-    public float speed = 2.0f;   // Velocidad del enemigo
-    public float moveDistance = 5.0f;   // Distancia máxima que el enemigo se moverá antes de cambiar de dirección
+    public float speed =3.0f;  // Velocidad del enemigo
+    public float fuerzaSalto = 5.0f; // Fuerza de salto del enemigo
+    public LayerMask queEsSuelo; // Capa que representa el suelo
+    public Transform controladorSuelo; // Objeto para verificar si está en el suelo
+    public Vector3 dimensionesCaja; // Dimensiones de la caja para detectar el suelo
 
-    private Vector3 startPosition;  // Posición inicial del enemigo
-    private bool movingRight = true; // Dirección de movimiento (true = derecha, false = izquierda)
+    private Rigidbody2D rb2D;
+    private bool enSuelo;
 
     // Start is called before the first frame update
     void Start()
     {
-        // Guardar la posición inicial del enemigo
-        startPosition = transform.position;
+        rb2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Mover al enemigo en función de la dirección actual
-        if (movingRight)
-        {
-            transform.position += Vector3.right * speed * Time.deltaTime;
-        }
-        else
-        {
-            transform.position += Vector3.left * speed * Time.deltaTime;
-        }
+        // Mover al enemigo siempre hacia la derecha
+        transform.position += Vector3.right * speed * Time.deltaTime;
 
-        // Verificar si el enemigo ha alcanzado la distancia máxima para cambiar de dirección
-        if (Vector3.Distance(startPosition, transform.position) >= moveDistance)
+        // Verificar si el enemigo está en el suelo
+        enSuelo = Physics2D.OverlapBox(controladorSuelo.position, dimensionesCaja, 0f, queEsSuelo);
+
+        // Hacer que el enemigo salte automáticamente si está en el suelo
+        if (enSuelo)
         {
-            movingRight = !movingRight;  // Cambiar de dirección
-            startPosition = transform.position;  // Actualizar la nueva posición de referencia
+            Saltar();
         }
+    }
+
+    private void Saltar()
+    {
+        rb2D = GetComponent<Rigidbody2D>();
+        // Restringir la rotación en el eje Z para evitar que gire al colisionar
+        rb2D.freezeRotation = true;
+        rb2D.AddForce(new Vector2(0f, fuerzaSalto), ForceMode2D.Impulse);
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(controladorSuelo.position, dimensionesCaja);
     }
 }
