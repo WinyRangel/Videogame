@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Sushi
   - Espinas
+  - Jugo
   layers:
   - Default
   - TransparentFX
@@ -63,4 +64,7 @@ TagManager:
     locked: 0
   - name: Cueva
     uniqueID: 953445241
+    locked: 0
+  - name: Jugo
+    uniqueID: 324951153
     locked: 0

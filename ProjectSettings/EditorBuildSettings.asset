@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/2D Platformer Assets/Starter_Scene.unity
     guid: 12eaea94eaebc5e459e49753ddfd1f78
+  - enabled: 1
+    path: Assets/Scenes/Starter_Scene.unity
+    guid: 291fdd6633034b7428beea5664d960cb
   m_configObjects: {}
