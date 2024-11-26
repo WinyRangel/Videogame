@@ -9,7 +9,7 @@ public class SoyaController : MonoBehaviour
     {
         if (other.CompareTag("Player") && gameObject.CompareTag("Jugo"))
         {
-            other.GetComponent<CombateJugadorController>().Curar(20);
+            other.GetComponent<CombateJugadorController>().Curar(30);
             StartCoroutine(DestruirConRetraso(0.1f)); // 0.5 segundos de retraso, puedes ajustar el valor
         }
     }

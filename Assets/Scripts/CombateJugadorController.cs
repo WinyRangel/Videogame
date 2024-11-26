@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 public class CombateJugadorController : MonoBehaviour
 {
     [SerializeField] private float vida;
@@ -9,6 +9,8 @@ public class CombateJugadorController : MonoBehaviour
     [SerializeField] private float maximoVida;
 
     [SerializeField] private BarraVidaController barraVida;
+
+    public event EventHandler MuerteJugador;
     void Start()
     {
         vida = maximoVida;
@@ -21,6 +23,7 @@ public class CombateJugadorController : MonoBehaviour
         barraVida.CambiarVidaActual(vida);
         if (vida <= 0)  // Cambiar la condición para incluir 0
         {
+            MuerteJugador?.Invoke(this, EventArgs.Empty);
             Destroy(gameObject);
         }
     }

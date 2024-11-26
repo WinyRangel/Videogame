@@ -15,7 +15,7 @@ public class EspinasController : MonoBehaviour
             tiempoSiguienteDaño -= Time.deltaTime;
             if(tiempoSiguienteDaño <= 0)
             {
-                other.GetComponent<CombateJugadorController>().TomarDaño(20);
+                other.GetComponent<CombateJugadorController>().TomarDaño(15);
                 tiempoSiguienteDaño = tiempoEntreDaño;
             }
 

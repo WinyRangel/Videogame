@@ -7,6 +7,8 @@ TagManager:
   - Sushi
   - Espinas
   - Jugo
+  - Meta
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -18,7 +20,7 @@ TagManager:
   - Sushi
   - NivelVida
   - Cueva
-  - 
+  - Lago
   - 
   - 
   - 
@@ -47,8 +49,20 @@ TagManager:
   - name: BG
     uniqueID: 2296770605
     locked: 0
+  - name: Edificios
+    uniqueID: 567509657
+    locked: 0
+  - name: Espina
+    uniqueID: 3788911663
+    locked: 0
+  - name: Lago
+    uniqueID: 1439361259
+    locked: 0
   - name: Piso
     uniqueID: 2077933059
+    locked: 0
+  - name: Cueva
+    uniqueID: 953445241
     locked: 0
   - name: Player
     uniqueID: 3743873819
@@ -62,9 +76,15 @@ TagManager:
   - name: BarraVida
     uniqueID: 2573031895
     locked: 0
-  - name: Cueva
-    uniqueID: 953445241
-    locked: 0
   - name: Jugo
     uniqueID: 324951153
+    locked: 0
+  - name: Panel
+    uniqueID: 4058177257
+    locked: 0
+  - name: Boton
+    uniqueID: 2153198249
+    locked: 0
+  - name: Hiedra
+    uniqueID: 2366446261
     locked: 0
