@@ -1,14 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MetaController : MonoBehaviour
 {
-    public GameObject panelNivelSuperado;
-    public GameObject panelGameOver;
+    public GameObject panelNivelSuperado; // Panel que aparece al ganar el nivel
+    public GameObject panelGameOver; // Panel que aparece al perder
     private CombateJugadorController combateJugador;
     private bool nivelTerminado = false; // Indica si el nivel ha terminado
+    public GameObject botonSiguiente; // Referencia al botón "Siguiente"
 
     private void Start()
     {
@@ -26,8 +26,7 @@ public class MetaController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             nivelTerminado = true; // Marcar el nivel como terminado
-            StartCoroutine(NivelGanado());
-            panelNivelSuperado.SetActive(true);
+            VerificarProximoNivel();
         }
         else if (other.CompareTag("Enemy"))
         {
@@ -37,16 +36,30 @@ public class MetaController : MonoBehaviour
         }
     }
 
-    private IEnumerator NivelGanado()
+    private void VerificarProximoNivel()
     {
-        yield return new WaitForSeconds(5f);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        int escenaActual = SceneManager.GetActiveScene().buildIndex; // Índice de la escena actual
+        int siguienteEscena = escenaActual + 1; // Índice del siguiente nivel
+
+        if (siguienteEscena < SceneManager.sceneCountInBuildSettings)
+        {
+            // Si hay un siguiente nivel, mostrar el panel de nivel superado y cargarlo
+            panelNivelSuperado.SetActive(true);
+            StartCoroutine(CargarSiguienteNivel());
+        }
+ 
+    }
+
+    private IEnumerator CargarSiguienteNivel()
+    {
+        yield return new WaitForSeconds(5f); // Esperar unos segundos antes de cambiar de nivel
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // Cargar siguiente nivel
     }
 
     private IEnumerator NivelPerdido()
     {
         yield return new WaitForSeconds(5f);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reiniciar el nivel actual
     }
 
     private void OnPlayerDeath(object sender, System.EventArgs e)
@@ -63,6 +76,23 @@ public class MetaController : MonoBehaviour
         if (combateJugador != null)
         {
             combateJugador.MuerteJugador -= OnPlayerDeath;
+        }
+    }
+
+    // Método para cargar el siguiente nivel desde el botón
+    public void IrAlSiguienteNivel()
+    {
+        int escenaActual = SceneManager.GetActiveScene().buildIndex; // Obtener índice actual
+        int siguienteEscena = escenaActual + 1; // Calcular índice del siguiente nivel
+
+        if (siguienteEscena < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(siguienteEscena); // Cargar siguiente nivel
+        }
+        else
+        {
+            // Mostrar el panel de fin del juego si no hay más niveles
+            Debug.Log("No hay más niveles para cargar. ¡Has completado el juego!");
         }
     }
 }

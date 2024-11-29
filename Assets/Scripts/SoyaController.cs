@@ -5,18 +5,18 @@ using UnityEngine;
 
 public class SoyaController : MonoBehaviour
 {
+    public int curacion;
+
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && gameObject.CompareTag("Jugo"))
+        if (other.TryGetComponent(out VidaJugador vidaJugador))
         {
-            other.GetComponent<CombateJugadorController>().Curar(30);
-            StartCoroutine(DestruirConRetraso(0.1f)); // 0.5 segundos de retraso, puedes ajustar el valor
+            // Cura al jugador
+            vidaJugador.CurarVida(curacion);
+
+            // Destruye este objeto con un retraso de 0.1 segundos
+            Destroy(gameObject, 0.1f);
         }
-    }
-    // Corrutina para destruir el objeto con un retraso
-    private IEnumerator DestruirConRetraso(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        Destroy(gameObject);
     }
 }

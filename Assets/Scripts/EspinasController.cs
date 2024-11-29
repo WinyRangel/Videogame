@@ -4,22 +4,13 @@ using UnityEngine;
 
 public class EspinasController : MonoBehaviour
 {
-    [SerializeField] private float tiempoEntreDaño;
-    private float tiempoSiguienteDaño;
+    public int daño;
 
-
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if(other.TryGetComponent(out VidaJugador vidaJugador))
         {
-            tiempoSiguienteDaño -= Time.deltaTime;
-            if(tiempoSiguienteDaño <= 0)
-            {
-                other.GetComponent<CombateJugadorController>().TomarDaño(15);
-                tiempoSiguienteDaño = tiempoEntreDaño;
-            }
-
+            vidaJugador.TomarDaño(daño);
         }
-        
     }
 }

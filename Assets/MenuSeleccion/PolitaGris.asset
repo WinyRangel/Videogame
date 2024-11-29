@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc899a467a512ff40b9e57caf3b8f37a, type: 3}
+  m_Name: PolitaGris
+  m_EditorClassIdentifier: 
+  personajeJugable: {fileID: 1637233331315163385, guid: 3fc8dcc4d02f8f94f9334bbe17d47165, type: 3}
+  imagen: {fileID: -1392217012, guid: 1ed0275ea7ebe75409a8ac883402020d, type: 3}
+  nombre: Polita
